@@ -1,4 +1,4 @@
-from config import db
+from app.config import db
 from datetime import datetime
 
 

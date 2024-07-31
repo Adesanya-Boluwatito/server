@@ -2,11 +2,11 @@ from flask import  request, jsonify,current_app
 from werkzeug.utils import secure_filename
 from flask_login import login_required
 from datetime import datetime, timedelta 
-from models.properties_model import Property, Image
-from models.realtors_model import Realtor
-from config import db
-from credentials import *
-from properties import bp
+from app.models.properties_model import Property, Image
+from app.models.realtors_model import Realtor
+from app.config import db
+from app.credentials import *
+from app.properties import bp
 from sqlalchemy import func
 import uuid  # Import uuid
 

@@ -1,6 +1,6 @@
 from flask_login import UserMixin
 from datetime import datetime
-from config import db
+from app.config import db
 
 # Realtor model
 

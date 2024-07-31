@@ -2,10 +2,10 @@ from flask import jsonify, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, current_user, logout_user
 
-from user import bp
-from config import db
-from models.users_model import User
-from utils import send_OTP, verify_otp
+from app.user import bp
+from app.config import db
+from app.models.users_model import User
+from app.utils import send_OTP, verify_otp
 
 
 @bp.route('/')

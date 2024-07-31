@@ -4,11 +4,11 @@ from flask_login import login_required, current_user
 from google.cloud import exceptions as google_exceptions
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
-from models.realtors_model import Realtor
-from config import db
-from realtors import bp
+from app.models.realtors_model import Realtor
+from app.config import db
+from app.realtors import bp
 import uuid
-from credentials import *
+from app.credentials import *
 
 
 
