@@ -3,6 +3,10 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_cors import CORS
 from dotenv import load_dotenv
+import pymysql
+
+
+pymysql.install_as_MySQLdb()
 
 
 def create_app():
@@ -18,6 +22,14 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', '/default/path/to/uploads')
 
+
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        'connect_args': {
+            'ssl': {
+                'ssl-ca': '/path/to/ca-cert.pem'
+            }
+        }
+    }
 
     from app.config import db
     db.init_app(app)
