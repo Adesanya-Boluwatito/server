@@ -10,7 +10,7 @@ from app.utils import send_OTP, verify_otp
 
 @bp.route('/')
 def home():
-    return render_template("index.html")
+    return "Welcome Home"
 
 @bp.route('/register', methods=["POST"])
 def register():
