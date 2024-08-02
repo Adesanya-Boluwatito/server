@@ -21,12 +21,12 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', '/default/path/to/uploads')
-
+    ca_cert_path = os.getenv('CA_PEM')
 
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
         'connect_args': {
             'ssl': {
-                'ssl-ca': '/path/to/ca-cert.pem'
+                'ssl-ca': ca_cert_path 
             }
         }
     }
