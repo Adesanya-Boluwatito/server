@@ -1,18 +1,23 @@
+import os
 from flask import Flask
 from flask_login import LoginManager
 from flask_cors import CORS
+from dotenv import load_dotenv
+
 
 def create_app():
+    load_dotenv()
+
     app = Flask(__name__)
 
     CORS(app, supports_credentials=True)
 
-    app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default-secret-key')
     app.static_folder = 'static'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Boluwatito@localhost/real_estate_app'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    UPLOAD_FOLDER = '/path/to/your/uploads'
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', '/default/path/to/uploads')
+
 
     from app.config import db
     db.init_app(app)
