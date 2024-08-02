@@ -33,4 +33,4 @@ sqlparse==0.4.3
 Werkzeug==2.3.7
 mysqlclient
 gunicorn
-
+pymysql
