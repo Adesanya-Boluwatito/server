@@ -1,6 +1,6 @@
 from flask import  request, jsonify,current_app
 from werkzeug.utils import secure_filename
-from flask_login import login_required
+from flask_login import login_required, current_user
 from datetime import datetime, timedelta 
 from app.models.properties_model import Property, Image
 from app.models.realtors_model import Realtor
@@ -20,16 +20,17 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@bp.route('/property/new_property/<realtor_id>', methods=['POST'])
+@bp.route('/property/new_property', methods=['POST'])
 @login_required
-def create_property(realtor_id):
-    print(realtor_id)
-    realtor_exists = Realtor.query.filter_by(realtor_id=realtor_id).first() is not None
-    if not realtor_exists:
-        print(realtor_id)
+def create_property():
+    
+    if not current_user.is_realtor:
         return jsonify({"error": "Unauthorized user"}), 401
 
+    # Fetch the realtor_id from the Realtor model via the current user
+    realtor_id = current_user.realtor.realtor_id
 
+    
     request_data = None
 
     if request.headers['Content-Type'] == 'application/json':
@@ -43,11 +44,11 @@ def create_property(realtor_id):
     print(request_data)
 
     # Create a new property
-    ownwer_id = realtor_id
+    
 
     new_property = Property(
                             id=str(uuid.uuid4()),
-                            owner_id= ownwer_id,
+                            owner_id= realtor_id,
                             location=request_data.get('location'),
                             description=request_data.get('description'),
                             address=request_data.get('address'),
